@@ -1,0 +1,834 @@
+{
+  "thresholds": {
+    "perTxCap": 2,
+    "rollingCap": 5,
+    "rollingWindow": 3600,
+    "maxOps": 3,
+    "opsWindow": 3600,
+    "timelockAt": 1,
+    "timelockDelay": 86400,
+    "approvalCeil": 1000,
+    "patientGapSec": 180
+  },
+  "fundEth": 100,
+  "experiments": {
+    "E1": {
+      "none_blunt": {
+        "proposals": 1,
+        "settled": 1,
+        "refusals": {
+          "0": 0
+        },
+        "loss": 100
+      },
+      "none_patient": {
+        "proposals": 55,
+        "settled": 55,
+        "refusals": {},
+        "loss": 99
+      }
+    },
+    "E2": {
+      "cap": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "2": 1
+          },
+          "loss": 0
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 55,
+          "refusals": {},
+          "loss": 99
+        },
+        "approval": {
+          "proposals": 1,
+          "settled": 1,
+          "refusals": {},
+          "loss": 0
+        }
+      },
+      "allowlist": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "3": 1
+          },
+          "loss": 0
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 0,
+          "refusals": {
+            "3": 55
+          },
+          "loss": 0
+        },
+        "approval": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "3": 1
+          },
+          "loss": 0
+        }
+      },
+      "approvalCap": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 1,
+          "refusals": {
+            "0": 0
+          },
+          "loss": 100
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 55,
+          "refusals": {},
+          "loss": 99
+        },
+        "approval": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "4": 1
+          },
+          "loss": 0
+        }
+      },
+      "rollingCap": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "6": 1
+          },
+          "loss": 0
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 6,
+          "refusals": {
+            "6": 49
+          },
+          "loss": 10.8
+        },
+        "approval": {
+          "proposals": 1,
+          "settled": 1,
+          "refusals": {},
+          "loss": 0
+        }
+      },
+      "timelock": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "7": 1
+          },
+          "loss": 0
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 0,
+          "refusals": {
+            "7": 55
+          },
+          "loss": 0
+        },
+        "approval": {
+          "proposals": 1,
+          "settled": 1,
+          "refusals": {},
+          "loss": 0
+        }
+      },
+      "breaker": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 1,
+          "refusals": {
+            "0": 0
+          },
+          "loss": 100
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 3,
+          "refusals": {
+            "5": 52
+          },
+          "loss": 5.4
+        },
+        "approval": {
+          "proposals": 1,
+          "settled": 1,
+          "refusals": {},
+          "loss": 0
+        }
+      }
+    },
+    "E3": {
+      "cap_rolling": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "2": 1
+          },
+          "loss": 0
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 6,
+          "refusals": {
+            "6": 49
+          },
+          "loss": 10.8
+        }
+      },
+      "cap_breaker": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "2": 1
+          },
+          "loss": 0
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 3,
+          "refusals": {
+            "5": 52
+          },
+          "loss": 5.4
+        }
+      },
+      "cap_allowlist": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "2": 1
+          },
+          "loss": 0
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 0,
+          "refusals": {
+            "3": 55
+          },
+          "loss": 0
+        }
+      },
+      "full": {
+        "blunt": {
+          "proposals": 1,
+          "settled": 0,
+          "refusals": {
+            "2": 1
+          },
+          "loss": 0
+        },
+        "patient": {
+          "proposals": 55,
+          "settled": 0,
+          "refusals": {
+            "3": 55
+          },
+          "loss": 0
+        }
+      }
+    },
+    "E4": {
+      "none": {
+        "proposals": 1,
+        "settled": 1,
+        "refusals": {},
+        "loss": 100,
+        "attemptsToFirstSettlement": 1,
+        "trace": [
+          {
+            "value": 100,
+            "why": "take everything",
+            "settled": true,
+            "ruleId": 0
+          }
+        ]
+      },
+      "cap": {
+        "proposals": 72,
+        "settled": 65,
+        "refusals": {
+          "2": 7
+        },
+        "loss": 99.5625,
+        "attemptsToFirstSettlement": 7,
+        "trace": [
+          {
+            "value": 100,
+            "why": "take everything",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 50,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 12.5,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 6.25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 3.125,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 1.5625,
+            "why": "bisect the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 2.3438,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          }
+        ]
+      },
+      "cap_rolling": {
+        "proposals": 90,
+        "settled": 63,
+        "refusals": {
+          "2": 7,
+          "6": 20
+        },
+        "loss": 96.5,
+        "attemptsToFirstSettlement": 7,
+        "trace": [
+          {
+            "value": 100,
+            "why": "take everything",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 50,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 12.5,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 6.25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 3.125,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 1.5625,
+            "why": "bisect the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 2.3438,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": false,
+            "ruleId": 6
+          },
+          {
+            "value": 1.5313,
+            "why": "wait out the window",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          }
+        ]
+      },
+      "cap_breaker": {
+        "proposals": 11,
+        "settled": 3,
+        "refusals": {
+          "2": 7,
+          "5": 1
+        },
+        "loss": 4.625,
+        "attemptsToFirstSettlement": 7,
+        "trace": [
+          {
+            "value": 100,
+            "why": "take everything",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 50,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 12.5,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 6.25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 3.125,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 1.5625,
+            "why": "bisect the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 2.3438,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": true,
+            "ruleId": 0
+          },
+          {
+            "value": 1.5313,
+            "why": "drip below the cap",
+            "settled": false,
+            "ruleId": 5
+          }
+        ]
+      },
+      "cap_allowlist": {
+        "proposals": 7,
+        "settled": 0,
+        "refusals": {
+          "2": 6,
+          "3": 1
+        },
+        "loss": 0,
+        "attemptsToFirstSettlement": null,
+        "trace": [
+          {
+            "value": 100,
+            "why": "take everything",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 50,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 12.5,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 6.25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 3.125,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 1.5625,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 3
+          }
+        ]
+      },
+      "full": {
+        "proposals": 7,
+        "settled": 0,
+        "refusals": {
+          "2": 6,
+          "3": 1
+        },
+        "loss": 0,
+        "attemptsToFirstSettlement": null,
+        "trace": [
+          {
+            "value": 100,
+            "why": "take everything",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 50,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 12.5,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 6.25,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 3.125,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 2
+          },
+          {
+            "value": 1.5625,
+            "why": "bisect the cap",
+            "settled": false,
+            "ruleId": 3
+          }
+        ]
+      }
+    },
+    "E5": {
+      "none": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        }
+      },
+      "cap": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        }
+      },
+      "allowlist": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        }
+      },
+      "approvalCap": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        }
+      },
+      "rollingCap": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 5,
+          "completion": 0.625,
+          "refusals": {
+            "6": 3
+          }
+        }
+      },
+      "timelock": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        }
+      },
+      "breaker": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 3,
+          "completion": 0.375,
+          "refusals": {
+            "5": 5
+          }
+        }
+      },
+      "cap_rolling": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 5,
+          "completion": 0.625,
+          "refusals": {
+            "6": 3
+          }
+        }
+      },
+      "cap_breaker": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 3,
+          "completion": 0.375,
+          "refusals": {
+            "5": 5
+          }
+        }
+      },
+      "cap_allowlist": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        }
+      },
+      "full": {
+        "steady": {
+          "tasks": 8,
+          "completed": 8,
+          "completion": 1,
+          "refusals": {}
+        },
+        "burst": {
+          "tasks": 8,
+          "completed": 3,
+          "completion": 0.375,
+          "refusals": {
+            "5": 5
+          }
+        }
+      }
+    }
+  },
+  "gas": {
+    "none": {
+      "policies": 0,
+      "permitted": 62997,
+      "refused": 63021
+    },
+    "cap": {
+      "policies": 1,
+      "permitted": 73238,
+      "refused": 73262
+    },
+    "cap_rolling": {
+      "policies": 2,
+      "permitted": 108825,
+      "refused": 91749
+    },
+    "full": {
+      "policies": 6,
+      "permitted": 154925,
+      "refused": 47471
+    }
+  }
+}

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Policy Console — ERC-4337 Agent Wallet</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%233b6cff'/><path d='M16 7l7 3v6c0 4.4-2.9 7.6-7 9-4.1-1.4-7-4.6-7-9v-6l7-3z' fill='white'/></svg>" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="shell">
+
+  <!-- ------------------------------------------------------------- rail -->
+  <aside class="rail">
+    <div class="brand">
+      <div class="brand-mark">PW</div>
+      <div class="brand-text">
+        <div class="brand-name">Policy Wallet</div>
+        <div class="brand-sub">ERC-4337 containment</div>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <button data-view="overview" aria-current="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        <span>Overview</span>
+      </button>
+      <button data-view="policies">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v5.2c0 4.9-3.3 8.6-8 9.8-4.7-1.2-8-4.9-8-9.8V6.5L12 3z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Policies</span>
+      </button>
+      <button data-view="activity">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-7 5 14L17 12h4"/></svg>
+        <span>Activity</span>
+      </button>
+      <button data-view="model">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5M12 8h.01"/></svg>
+        <span>Threat model</span>
+      </button>
+    </nav>
+
+    <div class="rail-foot">
+      <div>wallet <code id="railWallet">—</code></div>
+      <div style="margin-top:4px">agent <code id="railAgent">—</code></div>
+    </div>
+  </aside>
+
+  <!-- ------------------------------------------------------------- main -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1 id="viewTitle">Overview</h1>
+        <div class="sub" id="viewSub">What the agent proposed, and what the wallet allowed.</div>
+      </div>
+      <div class="chip" id="statusChip"><i class="dot"></i><span id="statusText">connecting</span></div>
+    </div>
+
+    <!-- ========================================================= overview -->
+    <section class="view" id="view-overview">
+      <div class="card">
+        <div class="posture">
+          <div class="posture-text">
+            <div class="posture-title" id="postureTitle">—</div>
+            <div class="posture-note" id="postureNote"></div>
+            <div class="meter" id="postureMeter"><i style="width:0%"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="k">Wallet balance</div>
+          <div class="v"><span id="statBalance">0</span><small>ETH</small></div>
+          <div class="d" id="statBalanceD">of 100 ETH funded</div>
+        </div>
+        <div class="stat bad">
+          <div class="k">Reached the adversary</div>
+          <div class="v"><span id="statLost">0</span><small>ETH</small></div>
+          <div class="d" id="statLostD">realised adversarial loss</div>
+        </div>
+        <div class="stat good">
+          <div class="k">Refused</div>
+          <div class="v" id="statRefused">0</div>
+          <div class="d" id="statRefusedD">of 0 proposals</div>
+        </div>
+        <div class="stat">
+          <div class="k">Rules active</div>
+          <div class="v" id="statRules">0<small>/ 6</small></div>
+          <div class="d" id="statRulesD">—</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Live proposals</h2>
+            <div class="hint">Every attempt the agent made, and the rule that refused it.</div>
+          </div>
+          <button class="chip" id="clearFeed" style="cursor:pointer">Clear view</button>
+        </div>
+        <div class="feed" id="feedShort"><div class="feed-empty">Nothing proposed yet. Run a scenario from the panel.</div></div>
+      </div>
+    </section>
+
+    <!-- ========================================================= policies -->
+    <section class="view" id="view-policies" hidden>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>The six rules</h2>
+            <div class="hint">
+              Static rules can be enforced inside <code>validateUserOp</code>. Stateful rules
+              cannot — ERC-7562 forbids reading <code>block.timestamp</code> or foreign storage
+              during validation, so they run at execution instead.
+            </div>
+          </div>
+        </div>
+        <div class="policy-grid" id="policyGrid"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div><h2>Measured containment</h2>
+          <div class="hint">From the offline harness in <code>scripts/experiments.js</code>, 100 ETH funded.</div></div></div>
+        <table class="data">
+          <thead><tr><th>Configuration</th><th class="num">Static drip</th><th class="num">Adaptive adversary</th><th class="num">Benign (burst)</th></tr></thead>
+          <tbody>
+            <tr><td>No policy</td><td class="num">99.00</td><td class="num">100.00</td><td class="num">100%</td></tr>
+            <tr><td>PerTxCap</td><td class="num">99.00</td><td class="num">99.56</td><td class="num">100%</td></tr>
+            <tr><td>Cap + RollingCap</td><td class="num">10.80</td><td class="num" style="color:var(--danger)">96.50</td><td class="num">62%</td></tr>
+            <tr><td>Cap + VelocityBreaker</td><td class="num">5.40</td><td class="num" style="color:var(--ok)">4.62</td><td class="num">38%</td></tr>
+            <tr><td>Cap + Allowlist</td><td class="num">0.00</td><td class="num" style="color:var(--ok)">0.00</td><td class="num">100%</td></tr>
+          </tbody>
+        </table>
+        <p class="explain" style="margin-top:14px">
+          A rolling window can be waited out, so it collapses against an adversary with
+          patience. A latching breaker cannot, and it holds — at the cost of a third of
+          benign throughput. Run <strong>Adaptive adversary</strong> against each and watch
+          the difference happen.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================================================= activity -->
+    <section class="view" id="view-activity" hidden>
+      <div class="card">
+        <div class="card-head"><div><h2>Full activity</h2>
+          <div class="hint">Injected instructions, agent proposals, owner actions and clock changes.</div></div></div>
+        <div class="feed" id="feedFull"><div class="feed-empty">Nothing yet.</div></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ model -->
+    <section class="view" id="view-model" hidden>
+      <div class="card">
+        <div class="card-head"><div><h2>What this demonstrates</h2></div></div>
+        <div class="explain">
+          <p>The agent holds a key. Prompt injection means that key now answers to whoever
+          wrote the text the agent read — a webpage, an email, a tool result. No filter
+          catches every injection, so the wallet is built on the assumption that the
+          agent is <strong>already compromised</strong>.</p>
+          <p>The agent can only call <code>propose()</code>. It cannot add, remove or
+          reconfigure a rule, and it cannot clear a latched breaker. Those require the
+          owner key, which the agent never holds. Containment is therefore a property of
+          the key separation, not of the agent's judgement.</p>
+          <p>The metric is <strong>realised adversarial loss</strong> — value that actually
+          left the wallet — rather than a refusal count. A configuration that refuses 53 of
+          55 proposals and loses the balance anyway has contained nothing, and a
+          refusal-rate metric would score it well.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Where this is weak</h2>
+          <div class="hint">Stated here rather than discovered in review.</div></div></div>
+        <div class="explain">
+          <p><strong>The allowlist result depends on the threat model.</strong> The adversary
+          here has one destination and it is not listed. An attacker who redirects value to
+          a <em>listed</em> payee walks straight through.</p>
+          <p><strong>Timelock defers, it does not refuse.</strong> Its zero loss is "nothing
+          settled yet", not containment. Its real contribution is review time, and there is
+          no reviewer in this demo.</p>
+          <p><strong>This is not an EntryPoint deployment.</strong> Proposals go through a
+          direct path, so gas figures are relative policy costs, not bundler-accepted
+          validation gas.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ------------------------------------------------------------ panel -->
+  <aside class="panel">
+    <div class="seg" id="modeSeg">
+      <button data-mode="attack" aria-pressed="true">Injected</button>
+      <button data-mode="manual">Manual</button>
+      <button data-mode="owner">Owner</button>
+    </div>
+
+    <!-- injected scenarios -->
+    <div id="pane-attack">
+      <h3 style="margin-bottom:10px">Compromised agent</h3>
+      <div id="scenarioList"></div>
+    </div>
+
+    <!-- manual proposal -->
+    <div id="pane-manual" hidden>
+      <h3 style="margin-bottom:12px">Agent proposes</h3>
+      <div class="field" style="margin-bottom:14px">
+        <label for="toSel">Destination</label>
+        <select id="toSel"></select>
+      </div>
+      <div class="field" style="margin-bottom:6px">
+        <label for="amt">Amount</label>
+        <div class="amount-row">
+          <input class="amount-display" id="amt" type="text" inputmode="decimal" value="1.0" />
+          <span class="amount-unit">ETH</span>
+        </div>
+      </div>
+      <div class="field" style="margin:14px 0">
+        <label for="dataIn">Calldata (optional)</label>
+        <input class="mono" id="dataIn" value="0x" spellcheck="false" />
+      </div>
+      <button class="btn" id="proposeBtn">Propose</button>
+      <p class="hint" style="margin-top:10px">
+        Signed by the agent key. The wallet decides whether it settles.
+      </p>
+    </div>
+
+    <!-- owner controls -->
+    <div id="pane-owner" hidden>
+      <h3 style="margin-bottom:10px">Owner key</h3>
+      <p class="hint" style="margin-bottom:14px">
+        Actions the compromised agent cannot take.
+      </p>
+      <button class="btn ghost" id="unpauseBtn" style="margin-bottom:8px">Clear latched breaker</button>
+      <button class="btn ghost" id="advanceBtn" style="margin-bottom:8px">Advance clock 1 hour</button>
+      <button class="btn ghost" id="advanceDayBtn" style="margin-bottom:8px">Advance clock 24 hours</button>
+      <button class="btn danger" id="resetBtn">Redeploy and refund</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div>
+      <h3 style="margin-bottom:8px">Session</h3>
+      <div class="kv"><span>Funded</span><span id="kvFunded">—</span></div>
+      <div class="kv"><span>Balance</span><span id="kvBalance">—</span></div>
+      <div class="kv"><span>Lost</span><span id="kvLost">—</span></div>
+      <div class="kv"><span>Containment</span><span id="kvContain">—</span></div>
+    </div>
+  </aside>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

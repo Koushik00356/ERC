@@ -1,0 +1,27 @@
+{
+  "name": "erc4337-policy-wallet",
+  "version": "1.0.0",
+  "description": "Policy enforcement against prompt injection in ERC-4337 agent wallets",
+  "main": "index.js",
+  "scripts": {
+    "chain": "hardhat node",
+    "server": "node server/index.js",
+    "test": "hardhat test",
+    "experiments": "hardhat run scripts/experiments.js",
+    "figures": "python3 scripts/figures.py && python3 scripts/report.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.1.3",
+    "ethers": "^6.17.0",
+    "express": "^5.3.0",
+    "hardhat": "^2.29.1",
+    "solc": "^0.8.24"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.2",
+    "chai": "^4.5.0"
+  }
+}
